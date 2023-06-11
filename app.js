@@ -30,37 +30,37 @@ app.get('/api/translations/:lng', (req, res) => {
   res.json(translation);
 
 });
-app.post("/api/google-login", async (req, res) => {
-  const { token } = req.body;
-  const ticket = await client.verifyIdToken({
-    idToken: token,
-    audience: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-  });
-  const { name, email, picture } = ticket.getPayload();
-const result = await User.findOne({ email });
-if (result) {
-  throw createError(409, "Email already exist");
-}
-const hashPassword = await bcrypt.hash(email, 10);
-const avatarURL = gravatar.url(email);
-const verificationToken = v4();
-await User.create({
-  name,
-  email,
-  password: hashPassword,
-  verificationToken,
-  avatarURL,
-});
+// app.post("/api/google-login", async (req, res) => {
+//   const { token } = req.body;
+//   const ticket = await client.verifyIdToken({
+//     idToken: token,
+//     audience: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+//   });
+//   const { name, email, picture } = ticket.getPayload();
+// const result = await User.findOne({ email });
+// if (result) {
+//   throw createError(409, "Email already exist");
+// }
+// const hashPassword = await bcrypt.hash(email, 10);
+// const avatarURL = gravatar.url(email);
+// const verificationToken = v4();
+// await User.create({
+//   name,
+//   email,
+//   password: hashPassword,
+//   verificationToken,
+//   avatarURL,
+// });
 
-res.status(201).json({
-  user: {
-    name,
-    email,
-  },
-});
-  res.status(201);
-  res.json({ name, email, picture });
-});
+// res.status(201).json({
+//   user: {
+//     name,
+//     email,
+//   },
+// });
+//   res.status(201);
+//   res.json({ name, email, picture });
+// });
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
