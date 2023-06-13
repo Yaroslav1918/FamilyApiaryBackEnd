@@ -11,6 +11,7 @@ router.get(
 );
 router.post("/verify", controlWrapper(ctrl.getEmailVerificationToken));
 router.post("/login", controlWrapper(ctrl.login));
+router.post("/google-login", controlWrapper(ctrl.googleLogin));
 router.get("/current", auth, controlWrapper(ctrl.getCurrentUser));
 router.get("/logout", auth, controlWrapper(ctrl.logout));
 router.patch(

@@ -18,16 +18,11 @@ const userSchema = Schema(
     },
     password: {
       type: String,
-      required: true,
       minlength: 6,
     },
     token: {
       type: String,
       default: null,
-    },
-    avatarURL: {
-      type: String,
-      required: true,
     },
     verify: {
       type: Boolean,
@@ -50,10 +45,14 @@ const signInJoiSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
 });
+const googleSignInJoiSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+});
 
 const schemas = {
   signup: signUpJoiSchema,
   login: signInJoiSchema,
+  googleLogin: googleSignInJoiSchema,
 };
 
 const User = model("user", userSchema);
