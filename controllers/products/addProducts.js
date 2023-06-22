@@ -1,6 +1,6 @@
 const Cart = require("../../models/product");
 
-const addContact = async (req, res) => {
+const addProduct = async (req, res) => {
   const { _id } = req.user;
   const { items, totalQuantity } = req.body;
   let cart = await Cart.findOne({ owner: _id });
@@ -25,4 +25,4 @@ const addContact = async (req, res) => {
   res.status(201).json(cart);
 };
 
-module.exports = addContact;
+module.exports = addProduct;

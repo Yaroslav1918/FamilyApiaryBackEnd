@@ -1,15 +1,15 @@
-const getAllContacts = require("./getAllContacts");
+const getAllProducts = require("./getAllProducts");
 const getById = require("./getById");
 const addProducts = require("./addProducts");
 const updateContactById = require("./updateContactById");
 const removeProduct = require("./removeProduct");
-const getAllProducts = require("./getAllProducts");
+const getSoldProducts = require("./getSoldProducts");
 
 module.exports = {
-  getAllContacts,
+  getAllProducts,
   getById,
+  getSoldProducts,
   addProducts,
   updateContactById,
   removeProduct,
-  getAllProducts,
 };

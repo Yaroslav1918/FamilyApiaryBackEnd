@@ -12,8 +12,24 @@ const productsSchemaValidation = (req, res, next) => {
       })
     ),
     totalQuantity: Joi.number().required(),
+    boughtProducts: Joi.object().pattern(
+      Joi.string(),
+      Joi.object({
+        items: Joi.array().items(
+          Joi.object({
+            id: Joi.number(),
+            image: Joi.string(),
+            text: Joi.string(),
+            price: Joi.number(),
+            quantity: Joi.number(),
+            totalPrice: Joi.number(),
+          })
+        ),
+        boughtTotalQuantity: Joi.number(),
+      })
+    ),
   });
-  
+
   const validationResult = schema.validate(req.body);
   if (validationResult.error) {
     return res.status(400).json({ status: validationResult.error.details });
