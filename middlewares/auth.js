@@ -12,7 +12,6 @@ const auth = async (req, res, next) => {
     }
     try {
       const { id } = jwt.verify(token, SECRET_KEY);
-      console.log("🚀 ~ file: auth.js:15 ~ auth ~ id:", id)
       const user = await User.findById(id);
       if (!user || !user.token) {
         throw createError(401);

@@ -13,7 +13,8 @@ router.post(
   controlWrapper(ctrl.addProducts)
 );
 router.post("/sold-products", auth, controlWrapper(ctrl.getSoldProducts));
-
+router.post("/wishList", auth, controlWrapper(ctrl.addWishProduct));
+router.delete("/wishList/:id", auth, controlWrapper(ctrl.removeWishProduct));
 router.delete("/:id", auth, controlWrapper(ctrl.removeProduct));
 
 module.exports = router;

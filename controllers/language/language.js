@@ -3,9 +3,7 @@ const fs = require("fs").promises;
 
 const language = async (req, res) => {
   const { lng } = req.params;
-
   const filePath = path.join( "public", "locales", lng, "translation.json");
-   console.log("🚀 ~ file: language.js:15 ~ language ~ translation:", filePath);
   try {
     const fileContents = await fs.readFile(filePath, "utf8");
     const translation = JSON.parse(fileContents);

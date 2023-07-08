@@ -4,7 +4,8 @@ const addProducts = require("./addProducts");
 const updateContactById = require("./updateContactById");
 const removeProduct = require("./removeProduct");
 const getSoldProducts = require("./getSoldProducts");
-
+const addWishProduct = require("./addWishProduct")
+const removeWishProduct = require ("./removeWishProduct")
 module.exports = {
   getAllProducts,
   getById,
@@ -12,4 +13,6 @@ module.exports = {
   addProducts,
   updateContactById,
   removeProduct,
+  addWishProduct,
+  removeWishProduct,
 };

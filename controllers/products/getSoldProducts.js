@@ -4,7 +4,13 @@ const getSoldProducts = async (req, res) => {
   try {
     const { _id } = req.user;
     const user = await Cart.findOne({ owner: _id });
-    const { items, totalQuantity } = req.body.cartItems;
+    console.log(
+      "🚀 ~ file: getSoldProducts.js:8 ~ getSoldProducts ~  req.body.cartItems:",
+      req.body.cartItems
+    );
+    const { items, totalQuantity, wishlist, wishTotalQuantity } =
+      req.body.cartItems;
+
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, "0");
@@ -12,19 +18,20 @@ const getSoldProducts = async (req, res) => {
     const formattedDate = `${year}-${month}-${date}`;
     if (!user.boughtProducts.has(formattedDate)) {
       user.boughtProducts.set(formattedDate, {
-        items,
-        boughtTotalQuantity: totalQuantity,
+        items: [...items, ...wishlist],
+        boughtTotalQuantity: totalQuantity + wishTotalQuantity,
       });
     } else {
       const existingBoughtProduct = user.boughtProducts.get(formattedDate);
-      existingBoughtProduct.items.push(...items);
-      existingBoughtProduct.boughtTotalQuantity += totalQuantity;
+      existingBoughtProduct.items.push(...items, ...wishlist);
+      existingBoughtProduct.boughtTotalQuantity +=
+        totalQuantity + wishTotalQuantity;
       user.boughtProducts.set(formattedDate, existingBoughtProduct);
     }
-    user.items = user.items.filter(
-      (one) => !items.find((two) => one.id === two.id)
-    );
-    user.totalQuantity = !totalQuantity;
+    user.items = [];
+    user.wishItems = [];
+    user.totalQuantity = 0;
+    user.wishTotalQuantity = 0;
     await user.save();
     res.json({ user });
   } catch (error) {

@@ -27,6 +27,17 @@ const cartSchema = new mongoose.Schema({
     },
   ],
   totalQuantity: { type: Number, required: true },
+  wishItems: [
+    {
+      id: { type: Number, required: true },
+      image: { type: String, required: true },
+      text: { type: String, required: true },
+      price: { type: Number, required: true },
+      quantity: { type: Number, required: true },
+      totalPrice: { type: Number, required: true },
+    },
+  ],
+  wishTotalQuantity: { type: Number },
   boughtProducts: {
     type: Map,
     of: boughtProductSchema,

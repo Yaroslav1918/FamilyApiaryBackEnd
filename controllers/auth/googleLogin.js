@@ -6,7 +6,6 @@ const googleLogin = async (req, res) => {
   const { name, email } = req.body;
   const user = await User.findOne({ email });
 
-
   if (user) {
     const payload = {
       id: user._id,
@@ -24,14 +23,13 @@ const googleLogin = async (req, res) => {
     const newUser = await User.create({
       name,
       email,
-
     });
 
     const payload = {
-      id: newUser._id
+      id: newUser._id,
     };
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "2h" });
-
+    await User.findByIdAndUpdate(newUser._id, { token });
     res.status(201).json({
       token,
       user: {
